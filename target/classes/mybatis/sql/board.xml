@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace는 mapper xml들을 구별하기 위한 식별자 역할을 한다 -->
+<mapper namespace="mapper_board">
+	<!-- select 태그를 통해 select에 대한 sql을 문을 작성할 수 있다.
+	파라미터 값이 넘어 온다면 parameterType에 데이터 타입을 지정해주어야 한다.
+	쿼리문을 통해 얻을 값을 반환하기 위한 resultType을 반드시 지정해주아야 한다. -->
+	<select id="SelectList" resultType="board">
+		select * from board order by regdate desc
+	</select>
+</mapper>
