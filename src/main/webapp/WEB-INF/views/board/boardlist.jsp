@@ -19,28 +19,44 @@ th {
 </head>
 <body>
 
-<h3 style="text-align: center;">게시판 목록</h3>
+<div style="width: 80%; margin: auto;">
+	<h3 style="text-align: center;">게시판 목록</h3>
 
-
-<table border="1">
-	<tr>
-		<th>게시글 번호</th>
-		<th>제목</th>
-		<th>작성자</th>
-		<th>작성일</th>
-		<th>조회수</th>
-	</tr>
-	<c:forEach var="n" items="${list}">
+	<div style="text-align: right;">
+		<form action="" method="post">
+			<select>
+				<option ${(param.f == "title") ? "selected" : ""} value="title">제목</option>
+				<option ${(param.f == "nick") ? "selected" : ""} value="nick">작성자</option>
+			</select>
+			<input type="text" name="q" value="${param.q}">
+			<input type="submit" value="검색">	
+		</form>
+	</div>
+	<br>
+	<table border="1" style="width: 100%;">
 		<tr>
-			<td>${n.num}</td>
-			<td>${n.title}</td>
-			<td>${n.nick}</td>
-			<td>${n.regdate}</td>
-			<td>${n.hit}</td>
+			<th>게시글 번호</th>
+			<th>제목</th>
+			<th>작성자</th>
+			<th>작성일</th>
+			<th>조회수</th>
 		</tr>
-	</c:forEach>
-</table>
+		<c:forEach var="n" items="${list}">
+			<tr>
+				<td>${n.num}</td>
+				<td>${n.title}</td>
+				<td>${n.nick}</td>
+				<td>${n.regdate}</td>
+				<td>${n.hit}</td>
+			</tr>
+		</c:forEach>
+	</table>
+${count}pages
 
+	<div style="text-align: right;">
+		<a href="AddBoard"><button >게시글 추가</button></a>
+	</div>
+</div>
 
 </body>
 </html>

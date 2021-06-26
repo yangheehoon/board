@@ -9,4 +9,13 @@
 	<select id="SelectList" resultType="board">
 		select * from board order by regdate desc
 	</select>
+	
+	<select id="SelectCount" resultType="int">
+		select count(num) from board
+	</select>
+	
+	<insert id="InsertBoard" parameterType="hashMap">
+		insert into board values(seq_board.nextval,
+		#{title},#{content},#{nick},#{files},0,sysdate)
+	</insert>
 </mapper>

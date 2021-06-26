@@ -1,6 +1,8 @@
 package com.web.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,15 +13,36 @@ import com.web.model.Board;
 @Repository
 public class BoardDao {
 	
-	/*SqlSession 객체를 선언함과 동시에 오토와이어드로 해당 클래스에 주입*/
+	/*sqlSession 객체를 해당 클래스에 주입*/
 	@Autowired
 	SqlSession sqlSession;
 	
 	/*게시판 목록을 조회하기 위한 함수*/
 	public List<Board> SelectList(){
 			
-		/*mapper의 쿼리문을 통해 db의 반환 값을 리턴한다*/
+		/*mapper의 쿼리 값을 List로 반환*/
 		return sqlSession.selectList("mapper_board.SelectList");		
+	}
+
+	/*게시글의 갯수를 조회하기 위한 함수*/
+	public int SelectCount() {
+		
+		/*mapper의 쿼리 값을 mapper의 resultType에 맞게 반환*/ 
+		return sqlSession.selectOne("mapper_board.SelectCount");
+	}
+
+	/*게시글을 추가하기 위한 함수*/
+	public void InsertBoard(String title, String content, String files, String nick) {
+		
+		/*mapper에 파라미터를 보내기위해 해쉬맵에 각 파라미터를 담음*/
+		Map<String, Object> param_map = new HashMap<>();
+		param_map.put("title", title);
+		param_map.put("content", content);
+		param_map.put("files", files);
+		param_map.put("nick", nick);
+		
+		/*파라미터와 함께 인설트 실행*/
+		sqlSession.insert("mapper_board.InsertBoard", param_map);
 	}
 
 }

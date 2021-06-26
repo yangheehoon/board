@@ -4,7 +4,7 @@
 <configuration>
 
 	<typeAliases>		
-		<!-- db 값을 반환할 개체 별칭지정 -->
+		<!-- 쿼리문을 통해 반환된 값을 담을 개체 별칭 지정 -->
 		<typeAlias alias="board" type="com.web.model.Board"/>						
 	</typeAliases>
 

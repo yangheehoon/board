@@ -19,13 +19,17 @@
 	
 	<!-- sqlSessionFactory 객체 ioc 컨테이너에 생성 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<!-- setter에 dataSource 객체 주입 -->
 		<property name="dataSource" ref="dataSource" />
+		<!-- setter에 mybatis 설정정보 경로 값을 주입 -->  
 		<property name="configLocation" value="classpath:mybatis/mybatis_config.xml" />
+		<!-- setter에 쿼리문을 담고 있는 mapper 파일 경로 값을 주입 --> 
 		<property name="mapperLocations" value="classpath:mybatis/sql/*.xml" />
 	</bean>
 	
 	<!-- sqlSession 객체 ioc 컨테이너에 생성 -->
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<!-- 생성자에 sqlSessionFactory 객체 주입 -->
 		<constructor-arg index="0" ref="sqlSessionFactory" />
 	</bean>
 		

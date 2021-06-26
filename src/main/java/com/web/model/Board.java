@@ -9,9 +9,8 @@ public class Board {
 	private String title;
 	private String content;
 	private String nick;
-	private int hit;
 	private String files;
-	private int cmt_num;
+	private int hit;
 	private Date regdate ;
 	
 	/*기본생성자*/
@@ -20,15 +19,13 @@ public class Board {
 	}
 
 	/*오버로드생성자*/
-	public Board(int num, String title, String content, String nick, int hit, String files, int cmt_num, Date regdate) {
-		super();
+	public Board(int num, String title, String content, String nick, String files, int hit, Date regdate) {
 		this.num = num;
 		this.title = title;
 		this.content = content;
 		this.nick = nick;
 		this.hit = hit;
 		this.files = files;
-		this.cmt_num = cmt_num;
 		this.regdate = regdate;
 	}
 
@@ -65,14 +62,6 @@ public class Board {
 		this.nick = nick;
 	}
 
-	public int getHit() {
-		return hit;
-	}
-
-	public void setHit(int hit) {
-		this.hit = hit;
-	}
-
 	public String getFiles() {
 		return files;
 	}
@@ -80,13 +69,13 @@ public class Board {
 	public void setFiles(String files) {
 		this.files = files;
 	}
-
-	public int getCmt_num() {
-		return cmt_num;
+	
+	public int getHit() {
+		return hit;
 	}
 
-	public void setCmt_num(int cmt_num) {
-		this.cmt_num = cmt_num;
+	public void setHit(int hit) {
+		this.hit = hit;
 	}
 
 	public Date getRegdate() {
@@ -100,8 +89,8 @@ public class Board {
 	/*값을 확인하기 위한 toString 함수*/ 
 	@Override
 	public String toString() {
-		return "Board [num=" + num + ", title=" + title + ", content=" + content + ", nick=" + nick + ", hit=" + hit
-				+ ", files=" + files + ", cmt_num=" + cmt_num + ", regdate=" + regdate + "]";
+		return "Board [num=" + num + ", title=" + title + ", content=" + content + ", nick=" + nick + ", files=" + files
+				+ ", hit=" + hit + ", regdate=" + regdate + "]";
 	}
 	
 }
