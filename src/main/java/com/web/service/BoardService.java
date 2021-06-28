@@ -32,4 +32,12 @@ public class BoardService {
 		
 		boarddao.InsertBoard(title, content, files, nick);
 	}
+
+	/*게시글을 조회하기 위한 함수*/
+	public Board ServiceDetail(int num) {
+		/*게시글 조회수 증가 함수*/
+		boarddao.UpdateHit(num);
+		return boarddao.SelectBoard(num);
+	}
+
 }

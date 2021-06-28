@@ -1,6 +1,10 @@
 package com.web.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+
+import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +20,9 @@ import com.web.service.BoardService;
 /*리퀘스트매핑을 통해 요청 url을 클래스에 매핑*/
 @RequestMapping("/board")
 public class BoardController {
+	
+	@Autowired
+	ServletContext sc;	
 	
 	/*BoardService를 해당 클래스에 주입*/
 	@Autowired
@@ -43,12 +50,12 @@ public class BoardController {
 	}
 	
 	/*url매핑*/
-	@RequestMapping("/AddBoard")
+	@RequestMapping("/add_board")
 	/*게시글 추가 함수*/        /*브라우저에서 넘어온 파람을 해당 변수에 담음*/
 	public String AddBoard(@RequestParam(value="title",required=false) String title,
 			@RequestParam(value="content",required=false) String content,
 			@RequestParam(value="nick",required=false) String nick,
-			@RequestParam(value="reqfiles",required=false) MultipartFile[] reqfiles) {
+			@RequestParam(value="reqfiles",required=false) MultipartFile[] reqfiles) throws IllegalStateException, IOException {
 		
 		System.out.println(title);
 		System.out.println(content);
@@ -66,13 +73,30 @@ public class BoardController {
 				System.out.println(file.getSize());
 				/*file변수에 파일이 담겨있는지 확인*/
 				if(file.getSize()==0) {
-					
+					break; /*파일이 담겨있지 않으면 포문 종료*/ 
 				}
 				/*파일의 이름을 구해 구분인,와 함께 빌더에 담아준다*/
-				builder.append(file.getOriginalFilename()+",");
+				String filename= file.getOriginalFilename();
+				builder.append(filename+",");
+				/*워크스페이스 경로가 아닌 실제 프로젝트 배포 후 파일이 저장될 경로를 알아야함*/
+				/*파일이 저장될 실제 경로를 구해 파일이름과 합침*/				
+				String realpath = sc.getRealPath("/resources/board"); 
+				realpath += File.separator + filename;
+				System.out.println(realpath);
+				/*실제 경로에 파일을 담기위해 파일 객체 생성*/
+				File savefile = new File(realpath);
+				/*해당 경로에 파일을 만들어준다*/
+				file.transferTo(savefile);
 			}
 			
 		}
+		
+		/*빌더에 파일이름이 담기면 맨 마지막 파일이름 뒤에 콤마를 제거*/
+		if(!builder.toString().equals("")) {
+			builder.delete(builder.length()-1, builder.length());
+		}
+		
+	    /*빌더에 저장된 값을 db에 보내기 위한 변수에 담음*/ 
 		String files = builder.toString();
 		
 		/*파라미터 값이 널이 아니면 서비스 함수 실행 후 게시판목록으로 리턴*/
@@ -86,6 +110,19 @@ public class BoardController {
 		}
 						
 		return "board/add_board";
+	}
+	
+	/*url 매핑*/
+	@RequestMapping("/detailed_board")
+	/*게시글을 조회하기 위한 함수*/    /*게시글 넘버의 파라미터를 받는다*/
+	public String DetailedBoard(@RequestParam(value="num")int num,
+			Model model) {
+		/*서비스함수에서 넘어온 게시글 데이터를 board에 담음*/
+		Board board = boardservice.ServiceDetail(num);
+		/*모델 객체에 board 담음*/
+		model.addAttribute("board",board);
+		
+		return "board/detailed_board";
 	}
 	
 }

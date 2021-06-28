@@ -44,7 +44,7 @@ th {
 		<c:forEach var="n" items="${list}">
 			<tr>
 				<td>${n.num}</td>
-				<td>${n.title}</td>
+				<td><a href="detailed_board?num=${n.num}">${n.title}</a></td>
 				<td>${n.nick}</td>
 				<td>${n.regdate}</td>
 				<td>${n.hit}</td>
@@ -54,7 +54,7 @@ th {
 ${count}pages
 
 	<div style="text-align: right;">
-		<a href="AddBoard"><button >게시글 추가</button></a>
+		<a href="add_board"><button >게시글 추가</button></a>
 	</div>
 </div>
 

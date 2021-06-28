@@ -45,4 +45,15 @@ public class BoardDao {
 		sqlSession.insert("mapper_board.InsertBoard", param_map);
 	}
 
+	/*게시글을 조회하기 위한 함수*/
+	public Board SelectBoard(int num) {
+		/*num파라미터를 통해 mapper로 부터 게시글 객체 리턴 */ 
+		return sqlSession.selectOne("mapper_board.SelectBoard",num);
+	}
+
+	/*게시글 조회수 증가 함수*/
+	public void UpdateHit(int num) {
+		sqlSession.update("mapper_board.UpdateHit", num);
+	}
+
 }
