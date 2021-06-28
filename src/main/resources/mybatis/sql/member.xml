@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace는 mapper xml들을 구별하기 위한 식별자 역할을 한다 -->
+<mapper namespace="mapper_member">
+	<!-- insert 쿼리문  태그 파라미터가 많기 때문에 hashmap으로 받음 -->
+	<insert id="InsertMember" parameterType="hashMap">
+		insert into member values(#{id},#{pw},#{nick},
+		#{name},#{gender},#{email},#{phone},#{address},
+		#{birth},sysdate )
+	</insert>
+</mapper>

@@ -26,5 +26,4 @@
 	<update id="UpdateHit" parameterType="int">
 		update board set hit=hit+1 where num = #{num}
 	</update>
-	
 </mapper>
