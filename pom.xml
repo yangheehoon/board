@@ -150,6 +150,22 @@
 		    <artifactId>commons-fileupload</artifactId>
 		    <version>1.4</version>
 		</dependency>
+
+		<!-- 스프링 시큐리티 웹--> 	
+		<!-- 스프링 시큐리티의 핵심인 코어는 웹이나 컨피그의 의존성으로 얻어짐을 확인 -->	
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-web</artifactId>
+		    <version>5.2.1.RELEASE</version>
+		</dependency>
+		
+		<!-- 스프링 시큐리티 컨피그-->
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-config</artifactId>
+		    <version>5.2.1.RELEASE</version>
+		</dependency>
+		
 		      		      
 	</dependencies>
     <build>

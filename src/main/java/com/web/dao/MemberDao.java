@@ -7,6 +7,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.web.model.Member;
+
 @Repository
 public class MemberDao {
 
@@ -30,6 +32,20 @@ public class MemberDao {
 		
 		/*mapper의 insert 실행을 위한 함수*/
 		sqlSession.insert("mapper_member.InsertMember",param_map );
+	}
+	/*회원 조회 함수*/
+	public Member SelectMember(String id, String pw) {
+		/*파라미터가 2개이상이기에 hashmap에 담아 보내준다*/
+		Map<String, Object> param_map = new HashMap<>();
+		param_map.put("id", id);
+		param_map.put("pw", pw);
+		
+		return sqlSession.selectOne("mapper_member.SelectMember", param_map);
+	}
+	/*아이디 조회 함수*/
+	public String SelectId(String id) {
+		
+		return sqlSession.selectOne("mapper_member.SelectId" ,id);
 	}
 
 }

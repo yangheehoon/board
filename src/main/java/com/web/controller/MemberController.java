@@ -1,9 +1,12 @@
 package com.web.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.web.service.MemberService;
 
@@ -38,11 +41,25 @@ public class MemberController {
 		return "member/join";
 	}
 	
-	/*로그인 함수*/
+	/*로그인 페이지 호출 함수*/  
 	@RequestMapping("/login")
-	public String login() {
-		
+	public String Login() {
 		
 		return "member/login";
 	}
+	
+	/*로그인 체크 함수*/
+	@RequestMapping("/login_ck")
+	/*ajax에 viewresolve를 거치지 않고 
+	string 값을 그대로 리턴 받기 위해 reponsebody 사용*/
+	@ResponseBody
+	public String LoginCk(@RequestParam(value="id") String id,
+			@RequestParam(value="pw") String pw,
+			HttpSession session) {
+		
+		/*로그인 정보를 담기 위해 session도 보내준다*/
+		return memberservice.ServiceLoginCk(id,pw,session);		
+	}
+	
+	
 }

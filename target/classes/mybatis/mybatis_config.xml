@@ -6,6 +6,8 @@
 	<typeAliases>		
 		<!-- 쿼리문을 통해 반환된 값을 담을 개체 별칭 지정 -->
 		<typeAlias alias="board" type="com.web.model.Board"/>						
+		<typeAlias alias="Member" type="com.web.model.Member"/>							
+		
 	</typeAliases>
 
 
