@@ -18,7 +18,7 @@ public class MemberController {
 	MemberService memberservice;
 	
 	/*회원가입 함수*/
-	@RequestMapping("/join")
+	@RequestMapping("/joinform")
 	public String join(@RequestParam(value="id", required=false) String id,			
 		@RequestParam(value="pw", required=false) String pw,
 		@RequestParam(value="nick", required=false) String nick,
@@ -35,17 +35,17 @@ public class MemberController {
 			
 			memberservice.ServiceJoin(id,pw,nick,name,gender,email,phone,address,birth);
 			
-			return "redirect:/member/login";
+			return "member/join_success";
 		}		
 		
-		return "member/join";
+		return "member/joinform";
 	}
 	
 	/*로그인 페이지 호출 함수*/  
-	@RequestMapping("/login")
+	@RequestMapping("/loginform")
 	public String Login() {
 		
-		return "member/login";
+		return "member/loginform";
 	}
 	
 	/*로그인 체크 함수*/

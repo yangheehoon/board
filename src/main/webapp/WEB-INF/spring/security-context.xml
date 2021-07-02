@@ -3,13 +3,41 @@
 	xmlns="http://www.springframework.org/schema/security"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
                         http://www.springframework.org/schema/beans/spring-beans.xsd
                         http://www.springframework.org/schema/security
                         http://www.springframework.org/schema/security/spring-security.xsd">
 
-	
 
+	<!-- 스프링 시큐리터는 필터에서 수행되기에 컴포넌트 스캔보다 
+	더빨리 수행된다 UserDetailsService의 구현체를 프로바이드에서 
+	참조할 수 있도록 컴포넌트 스캔을 담고 있는 서블릿 컨테스트 설정 파일을  
+	시큐리티와 같이 실행될 수 있도록 임포트 -->
+	<beans:import resource="/appServlet/servlet-context.xml"/> 
+	
+	<!-- 웹페이지 관련 태그 --> 
+	<!-- auto-config 인증사용 defalt:true , use-expressions spel 사용 defalt:false --> 
+	<http auto-config="true" use-expressions="true">
+		<!-- 패턴에 지정된 url에 해당 권한을 가진 유저만 접속가능-->
+		<intercept-url pattern="/board/add_board" access="hasRole('ROLE_USER')" />
+		<!-- 로그인 처리 url , page를 지정해주지 않으면 defalt=/login , default-target-url 로그인후 반환할 url -->
+		<form-login login-page="/member/loginform" default-target-url="/home" />
+		<!-- 로그아웃 설정  쿠키와세션  삭제여부 설정할 수 있음 defalt=true(삭제) , 로그인과 마찬가지로 url페이지설정가능 -->
+		<logout logout-url="/member/logout" logout-success-url="/home" />
+		
+		<csrf disabled="true" />
+	</http> 
+	<!-- 인증 설정 -->
+	<authentication-manager>
+		<!-- 시큐리티 라이브러리에 있는 UserDetailsService를 
+		커스터마이징한 구현체가 user-service-ref에 참조되야 한다  --> 	
+		<authentication-provider user-service-ref="userLoginService"> 
+	 	 	
+	 	</authentication-provider>
+	</authentication-manager>
+
+	<!-- 인증 작업 순서:  manager > provider > UserDetailsService -->
 
 </beans:beans>
 

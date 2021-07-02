@@ -7,7 +7,7 @@
 	<insert id="InsertMember" parameterType="hashMap">
 		insert into member values(#{id},#{pw},#{nick},
 		#{name},#{gender},#{email},#{phone},#{address},
-		#{birth},sysdate )
+		#{birth},sysdate, 'ROLE_USER' )
 	</insert>
 	<!-- 회원 조회 -->
 	<select id="SelectMember" parameterType="hashMap" resultType="Member">
@@ -17,4 +17,9 @@
 	<select id="SelectId" parameterType="String" resultType="String">
 		select id from member where id=#{id}
 	</select>
+	
+	<select id="SelectId2" parameterType="String" resultType="Member">
+		select * from member where id=#{id}
+	</select>
+
 </mapper>

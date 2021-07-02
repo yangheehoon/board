@@ -14,6 +14,8 @@ public class Member {
 	private String address;
 	private String birth;
 	private Date regdate;
+	private String authority;
+	
 	
 	/*기본 생성자*/
 	public Member() {
@@ -22,7 +24,7 @@ public class Member {
 
 	/*오버로드 생성자*/
 	public Member(String id, String pw, String nick, String gender, String email, String phone, String address,
-			String birth, Date regdate) {
+			String birth, Date regdate, String authority) {
 		super();
 		this.id = id;
 		this.pw = pw;
@@ -33,6 +35,7 @@ public class Member {
 		this.address = address;
 		this.birth = birth;
 		this.regdate = regdate;
+		this.authority = authority;
 	}
 
 	/*클래스의 데이터에 접근하기 위한 getter setter 생성*/
@@ -108,10 +111,20 @@ public class Member {
 		this.regdate = regdate;
 	}
 
+	public String getAuthority() {
+		return authority;
+	}
+
+	public void setAuthority(String authority) {
+		this.authority = authority;
+	}
+
 	@Override
 	public String toString() {
 		return "Member [id=" + id + ", pw=" + pw + ", nick=" + nick + ", gender=" + gender + ", email=" + email
-				+ ", phone=" + phone + ", address=" + address + ", birth=" + birth + ", regdate=" + regdate + "]";
+				+ ", phone=" + phone + ", address=" + address + ", birth=" + birth + ", regdate=" + regdate
+				+ ", authority=" + authority + "]";
 	}
+
 	
 }
