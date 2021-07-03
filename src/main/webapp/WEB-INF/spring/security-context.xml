@@ -25,8 +25,8 @@
 		<form-login login-page="/member/loginform" default-target-url="/home" />
 		<!-- 로그아웃 설정  쿠키와세션  삭제여부 설정할 수 있음 defalt=true(삭제) , 로그인과 마찬가지로 url페이지설정가능 -->
 		<logout logout-url="/member/logout" logout-success-url="/home" />
-		
-		<csrf disabled="true" />
+		<!-- 크로스사이트리퀘스트포어저리 방어 default=false -->
+		<csrf disabled="false" />
 	</http> 
 	<!-- 인증 설정 -->
 	<authentication-manager>

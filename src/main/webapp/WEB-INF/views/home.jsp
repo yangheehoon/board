@@ -15,7 +15,10 @@
 	<a href="/member/loginform">로그인</a>
 </c:if>
 <c:if test="${sessionScope.member.id!=null}">
-	<a href="/member/logout">로그아웃</a>
+	<a href="#" onclick="document.getElementById('logout').submit();">로그아웃</a>
+	<form id="logout" action="/member/logout" method="POST" style="display: none;">
+   		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+	</form>
 </c:if>
 <a href="/board/boardlist">게시판 목록</a>
 

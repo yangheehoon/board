@@ -1,9 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+<meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
+<meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/> 
 <title>Insert title here</title>
 <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
 <style type="text/css">
@@ -59,11 +61,16 @@ span {
 $("#login_ck").click(function(){
 	
 	var login_data = {id : $("#id").val() , pw : $("#pw").val()}
+	var token = $("#_csrf").attr("th:content");
+	var header = $("#_csrf_header").attr("th:content");
 	
 	$.ajax({
 		url : "login_ck", 
 		type : "post",
 		data : login_data,
+		beforeSend : function(xhr){   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+			xhr.setRequestHeader(header, token);
+        },
 		error : function(){
 			alert("ajax 에러");
 		},
@@ -77,6 +84,8 @@ $("#login_ck").click(function(){
 				var form = document.createElement('form'); 
 				var objs1;
 				var objs2;
+				var objs3;
+				var objs4;
 				objs1 = document.createElement('input'); 
 				objs1.setAttribute('type', 'text'); 
 				objs1.setAttribute('name', 'username'); 
@@ -85,8 +94,18 @@ $("#login_ck").click(function(){
 				objs2.setAttribute('type', 'text'); 
 				objs2.setAttribute('name', 'password'); 
 				objs2.setAttribute('value', $('#pw').val()); 
+				objs3 = document.createElement('input'); 
+				objs3.setAttribute('type', 'text'); 
+				objs3.setAttribute('name', '_csrf'); 
+				objs3.setAttribute('value', token); 
+				objs4 = document.createElement('input'); 
+				objs4.setAttribute('type', 'text'); 
+				objs4.setAttribute('name', '_csrf_header'); 
+				objs4.setAttribute('value', header); 				
 				form.appendChild(objs1);
 				form.appendChild(objs2);
+				form.appendChild(objs3);
+				form.appendChild(objs4);
 				form.setAttribute('method', 'post'); 
 				form.setAttribute('action', "/login"); 
 				document.body.appendChild(form);
