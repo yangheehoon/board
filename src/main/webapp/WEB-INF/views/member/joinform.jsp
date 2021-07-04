@@ -46,6 +46,7 @@ select {
 	<input type="text" name="address" placeholder="주소">
 	<input type="text" name="phone" placeholder="전화번호">
 	<input type="text" name="birth" placeholder="주민등록번호 ">
+	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	<input type="submit" value="회원가입">
 </form>
 
@@ -82,8 +83,17 @@ function ck(){
 	}else if(document.getElementsByName("phone")[0].value==""){
 		alert("전화번호를 입력해주세요.");
 		return false;
+	}else if(isNaN(document.getElementsByName("phone")[0].value)){
+		alert("전화번호는 숫자만 입력할 수 있습니다");
+		return false;
 	}else if(document.getElementsByName("birth")[0].value==""){
 		alert("주민등록번호를 입력해주세요.");
+		return false;
+	}else if (document.getElementsByName("birth")[0].value.length != 13) {
+		alert("주민등록번호 13자리를 입력해주세요");
+		return false;
+	}else if (isNaN(document.getElementsByName("birth")[0].value)) {
+		alert("주민등록번호는 숫자만 입력할 수 있습니다");
 		return false;
 	}
 }

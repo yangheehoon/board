@@ -48,9 +48,9 @@ span {
 		<span id="msg"></span>
 		<input type="password" name="password" id="pw" placeholder="Password">
 		<span id="msg2"></span>
-		<input type="hidden" name="_csrf" >
-		<input type="hidden" name="_csrf_header" >
-	
+		<input type="hidden" name="${_csrf.parameterName}" >
+		<!-- <input type="hidden" name="_csrf_header" > -->
+		
 		<!-- <input type="submit" value="로그인"> --> 
 	</form>
 	<!-- 화면 전환이 생기지 않게 form 밖에서 버튼 구현 ajax를 통해 요청 --> 
@@ -85,8 +85,8 @@ $("#login_ck").click(function(){
 				$("#msg").text("");
 				$("#msg2").text("패스워드가 일치하지 않습니다").css("color","red")
 			}else if(data=="success"){
-				$("input[name=_csrf]").val(token);
-				$("input[name=_csrf_header]").val(header);
+				$("input[name=${_csrf.parameterName}]").val(token);
+				/* $("input[name=_csrf_header]").val(header); */
 				$("#fm").submit();				
 			}
 		}
