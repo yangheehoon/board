@@ -26,9 +26,11 @@
 	
 	<!--멀티파트 데이터 형식으로 인코딩 되어 들어온 파라미터를 컨트롤러가 받을 수 있게함  -->
 	<!-- 파일리졸버 객체 생성 -->
-	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	<!-- csrf 보안 시 multipartfilter를 타기위해 반드시 
+	filterMultipartResolver로 id를 명시해야함 -->
+	<beans:bean id="filterMultipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<!-- setter를 통해 파일최대크기 값 주입 -->
-		<beans:property name="maxUploadSize" value="314572800"></beans:property>
+		<beans:property name="maxUploadSize" value="314572800" />
 	</beans:bean>
 	
 	<!-- 컴포넌트 스캔을 통해 각 패키지에 어노테이션이 있는지 체크 있으면 객체 생성 -->

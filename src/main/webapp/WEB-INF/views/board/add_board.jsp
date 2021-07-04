@@ -16,8 +16,9 @@
 		<input type="text" placeholder="제목" name="title" style="width: 100%;">
 		<br><br>
 		<textarea rows="10" style="width: 100%;" name="content" placeholder="내용"></textarea>
-		<input type="hidden" name="nick" value=${"test"}>
 		<input type="file" name="reqfiles" multiple="multiple">
+		<input type="hidden" name="nick" value="${sessionScope.member.nick}">
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 		<div style="text-align: right;">
 			<input type="submit" value="게시글 등록">
 		</div>
