@@ -31,10 +31,13 @@ public class BoardController {
 	/*리퀘스트매핑을 통해 요청 url을 메소드에 매핑*/
 	@RequestMapping("/boardlist")
 	/*게시판 목록을 조회하기 위한 함수*/
-	public String BoardList(Model model) {
+	public String BoardList(@RequestParam(value="p",defaultValue="1") String page,
+			@RequestParam(value="f",defaultValue="title") String field,
+			@RequestParam(value="q",defaultValue="") String query,
+			Model model) {
 		
 		/*list에 게시판 목록 담음*/
-		List<Board> list = boardservice.ServiceList();
+		List<Board> list = boardservice.ServiceList(page,field,query);
 		
 		/*count에 게시글 갯수 담음*/
 		int count = boardservice.ServiceCount();

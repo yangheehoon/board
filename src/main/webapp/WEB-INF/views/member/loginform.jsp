@@ -43,11 +43,14 @@ span {
 <h3 style="text-align: center;">로그인</h3>
 
 <div style="width: 30%; margin: auto;">
-	<form action="/login" method="post">
+	<form action="/login" method="post" id="fm">
 		<input type="text" name="username" id="id" placeholder="ID">
 		<span id="msg"></span>
 		<input type="password" name="password" id="pw" placeholder="Password">
 		<span id="msg2"></span>
+		<input type="hidden" name="_csrf" >
+		<input type="hidden" name="_csrf_header" >
+	
 		<!-- <input type="submit" value="로그인"> --> 
 	</form>
 	<!-- 화면 전환이 생기지 않게 form 밖에서 버튼 구현 ajax를 통해 요청 --> 
@@ -57,6 +60,7 @@ span {
 
 </body>
 <script type="text/javascript">
+
 /* 화면 전환 없이 로그인 시도하기 위해 ajax사용 */
 $("#login_ck").click(function(){
 	
@@ -81,36 +85,9 @@ $("#login_ck").click(function(){
 				$("#msg").text("");
 				$("#msg2").text("패스워드가 일치하지 않습니다").css("color","red")
 			}else if(data=="success"){
-				var form = document.createElement('form'); 
-				var objs1;
-				var objs2;
-				var objs3;
-				var objs4;
-				objs1 = document.createElement('input'); 
-				objs1.setAttribute('type', 'text'); 
-				objs1.setAttribute('name', 'username'); 
-				objs1.setAttribute('value', $('#id').val()); 
-				objs2 = document.createElement('input'); 
-				objs2.setAttribute('type', 'text'); 
-				objs2.setAttribute('name', 'password'); 
-				objs2.setAttribute('value', $('#pw').val()); 
-				objs3 = document.createElement('input'); 
-				objs3.setAttribute('type', 'text'); 
-				objs3.setAttribute('name', '_csrf'); 
-				objs3.setAttribute('value', token); 
-				objs4 = document.createElement('input'); 
-				objs4.setAttribute('type', 'text'); 
-				objs4.setAttribute('name', '_csrf_header'); 
-				objs4.setAttribute('value', header); 				
-				form.appendChild(objs1);
-				form.appendChild(objs2);
-				form.appendChild(objs3);
-				form.appendChild(objs4);
-				form.setAttribute('method', 'post'); 
-				form.setAttribute('action', "/login"); 
-				document.body.appendChild(form);
-				form.submit();
-
+				$("input[name=_csrf]").val(token);
+				$("input[name=_csrf_header]").val(header);
+				$("#fm").submit();				
 			}
 		}
 	})

@@ -18,10 +18,15 @@ public class BoardDao {
 	SqlSession sqlSession;
 	
 	/*게시판 목록을 조회하기 위한 함수*/
-	public List<Board> SelectList(){
+	public List<Board> SelectList(String page, String field, String query){
 			
+		Map<String,Object> param_map = new HashMap<>();
+		param_map.put("page", page);
+		param_map.put("field", field);
+		param_map.put("query", query);
+				
 		/*mapper의 쿼리 값을 List로 반환*/
-		return sqlSession.selectList("mapper_board.SelectList");		
+		return sqlSession.selectList("mapper_board.SelectList" , param_map);		
 	}
 
 	/*게시글의 갯수를 조회하기 위한 함수*/
